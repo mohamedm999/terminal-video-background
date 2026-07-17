@@ -84,8 +84,22 @@ function requestElevatedWrite(filePath: string, content: string): boolean {
         '-Wait',
       ].join(' ');
       execSync(`powershell -Command "${psScript}"`, { stdio: 'pipe', timeout: 30000 });
+    } else if (process.platform === 'darwin') {
+      // macOS: use osascript for admin elevation
+      const escapedTemp = tempPath.replace(/"/g, '\\"');
+      const escapedFile = filePath.replace(/"/g, '\\"');
+      execSync(
+        `osascript -e 'do shell script "cp -f \\"${escapedTemp}\\" \\"${escapedFile}\\"" with administrator privileges'`,
+        { stdio: 'pipe', timeout: 30000 },
+      );
     } else {
-      execSync(`pkexec mv -f "${tempPath}" "${filePath}"`, { stdio: 'pipe', timeout: 30000 });
+      // Linux: try pkexec first, then fallback to sudo with terminal
+      try {
+        execSync(`pkexec cp -f "${tempPath}" "${filePath}"`, { stdio: 'pipe', timeout: 30000 });
+      } catch {
+        // pkexec not available, try sudo via xterm/gnome-terminal
+        execSync(`sudo cp -f "${tempPath}" "${filePath}"`, { stdio: 'pipe', timeout: 30000 });
+      }
     }
 
     Logger.info('File written with elevated privileges');

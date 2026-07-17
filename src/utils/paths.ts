@@ -49,9 +49,17 @@ function findWorkbenchPath(appRoot: string): string {
       // ignore
     }
   } else if (process.platform === 'darwin') {
+    // On macOS, execPath is inside .app/Contents/MacOS/
+    // Resources are at .app/Contents/Resources/
+    const contentsDir = path.dirname(appRoot); // Contents/
     candidates.push(
+      path.join(contentsDir, 'Resources', 'app', 'out', 'vs', 'workbench'),
       path.join(appRoot, 'Resources', 'app', 'out', 'vs', 'workbench'),
       path.join(appRoot, 'out', 'vs', 'workbench'),
+    );
+    // Also check common Homebrew/direct install locations
+    candidates.push(
+      '/Applications/Visual Studio Code.app/Contents/Resources/app/out/vs/workbench',
     );
   } else {
     candidates.push(
@@ -59,6 +67,10 @@ function findWorkbenchPath(appRoot: string): string {
       path.join(appRoot, 'out', 'vs', 'workbench'),
       '/usr/share/code/resources/app/out/vs/workbench',
       '/usr/lib/code/resources/app/out/vs/workbench',
+      // Snap package
+      '/snap/code/current/usr/share/code/resources/app/out/vs/workbench',
+      // Flatpak
+      '/var/lib/flatpak/app/com.visualstudio.code/current/active/files/share/code/resources/app/out/vs/workbench',
     );
   }
 
