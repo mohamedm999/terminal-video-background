@@ -1,0 +1,225 @@
+{
+  "name": "terminal-video-background",
+  "displayName": "Terminal Video Background",
+  "description": "Display looping MP4/WebM video backgrounds behind your integrated terminal in VS Code",
+  "version": "1.0.0",
+  "publisher": "terminal-video-bg",
+  "author": {
+    "name": "terminal-video-bg"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/terminal-video-background"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/terminal-video-background/issues"
+  },
+  "homepage": "https://github.com/your-username/terminal-video-background#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Themes",
+    "Other"
+  ],
+  "keywords": [
+    "terminal",
+    "video",
+    "background",
+    "wallpaper",
+    "mp4",
+    "webm",
+    "animated",
+    "customization",
+    "theme"
+  ],
+  "icon": "assets/icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "terminalVideo.enable",
+        "title": "Terminal Video: Enable",
+        "icon": "$(play)"
+      },
+      {
+        "command": "terminalVideo.disable",
+        "title": "Terminal Video: Disable",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "terminalVideo.selectVideo",
+        "title": "Terminal Video: Select Video",
+        "icon": "$(file-media)"
+      },
+      {
+        "command": "terminalVideo.restoreDefault",
+        "title": "Terminal Video: Restore Default",
+        "icon": "$(discard)"
+      },
+      {
+        "command": "terminalVideo.reloadBackground",
+        "title": "Terminal Video: Reload Background",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "terminalVideo.openSettings",
+        "title": "Terminal Video: Open Settings",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "terminalVideo.toggle",
+        "title": "Terminal Video: Toggle",
+        "icon": "$(symbol-color)"
+      },
+      {
+        "command": "terminalVideo.randomVideo",
+        "title": "Terminal Video: Random Video",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "terminalVideo.selectWorkspaceVideo",
+        "title": "Terminal Video: Select Workspace Video",
+        "icon": "$(folder-media)"
+      },
+      {
+        "command": "terminalVideo.clearWorkspaceVideo",
+        "title": "Terminal Video: Clear Workspace Video",
+        "icon": "$(close)"
+      },
+      {
+        "command": "terminalVideo.nextRandomVideo",
+        "title": "Terminal Video: Next Random Video",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "terminalVideo.showDiagnostics",
+        "title": "Terminal Video: Show Diagnostics",
+        "icon": "$(info)"
+      }
+    ],
+    "configuration": {
+      "title": "Terminal Video Background",
+      "properties": {
+        "terminalVideo.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable the terminal video background"
+        },
+        "terminalVideo.video": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the MP4/WebM video file"
+        },
+        "terminalVideo.opacity": {
+          "type": "number",
+          "default": 0.3,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Video opacity (0 = invisible, 1 = fully visible)"
+        },
+        "terminalVideo.blur": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 20,
+          "description": "Background blur amount in pixels"
+        },
+        "terminalVideo.brightness": {
+          "type": "number",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 200,
+          "description": "Video brightness percentage (100 = normal)"
+        },
+        "terminalVideo.saturation": {
+          "type": "number",
+          "default": 100,
+          "minimum": 0,
+          "maximum": 200,
+          "description": "Video saturation percentage (100 = normal)"
+        },
+        "terminalVideo.objectFit": {
+          "type": "string",
+          "default": "cover",
+          "enum": [
+            "cover",
+            "contain",
+            "fill",
+            "none"
+          ],
+          "description": "How the video should fit the terminal area"
+        },
+        "terminalVideo.loop": {
+          "type": "boolean",
+          "default": true,
+          "description": "Loop the video continuously"
+        },
+        "terminalVideo.muted": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mute video audio"
+        },
+        "terminalVideo.workspaceVideo": {
+          "type": "string",
+          "default": "",
+          "description": "Workspace-specific video path (overrides global video)"
+        },
+        "terminalVideo.autoRestore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically restore background after VS Code updates"
+        },
+        "terminalVideo.randomMode": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable random video selection from folder"
+        },
+        "terminalVideo.randomFolder": {
+          "type": "string",
+          "default": "",
+          "description": "Path to folder containing videos for random mode"
+        },
+        "terminalVideo.randomRecursive": {
+          "type": "boolean",
+          "default": false,
+          "description": "Scan subdirectories recursively when using random mode"
+        },
+        "terminalVideo.playbackRate": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0.25,
+          "maximum": 4,
+          "description": "Video playback speed multiplier"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "pretest": "npm run compile",
+    "package": "vsce package"
+  },
+  "vscode:uninstall": "./out/uninstall.js",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.1",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
