@@ -17,13 +17,11 @@ Display looping MP4/WebM video backgrounds behind your integrated terminal in VS
 
 ## Installation
 
-### One-Line Install (Recommended)
+### Quick Install (Recommended)
 
-Copy-paste one command — works from any directory:
-
-**macOS / Linux:**
+**macOS / Linux** — one command:
 ```bash
-curl -L https://github.com/mohamedm999/terminal-video-background/releases/download/v1.0.0/terminal-video-background-1.0.0.vsix -o /tmp/tvb.vsix && code --install-extension /tmp/tvb.vsix && rm /tmp/tvb.vsix
+curl -sL https://raw.githubusercontent.com/mohamedm999/terminal-video-background/main/install.sh | bash
 ```
 
 **Windows (PowerShell):**
