@@ -10,12 +10,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/terminal-video-background"
+    "url": "https://github.com/mohamedm999/terminal-video-background"
   },
   "bugs": {
-    "url": "https://github.com/your-username/terminal-video-background/issues"
+    "url": "https://github.com/mohamedm999/terminal-video-background/issues"
   },
-  "homepage": "https://github.com/your-username/terminal-video-background#readme",
+  "homepage": "https://github.com/mohamedm999/terminal-video-background#readme",
   "engines": {
     "vscode": "^1.85.0"
   },
